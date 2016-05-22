@@ -1,3 +1,3 @@
 require "opal"
+require_relative 'roman'
 
-puts "<h1>Wow, running opal!</h1>"
