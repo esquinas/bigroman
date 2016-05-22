@@ -19115,5 +19115,5 @@ Opal.modules["opal"] = function(Opal) {
 
   Opal.add_stubs(['$require', '$puts']);
   self.$require("opal");
-  return self.$puts("Wow, running opal!");
+  return self.$puts("<h1>Wow, running opal!</h1>");
 })(Opal);
