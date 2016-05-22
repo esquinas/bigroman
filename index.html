@@ -12,13 +12,14 @@
     <![endif]-->
     <style>
       input, button {
-        padding: 1em;
+        padding: 0.6em;
 	      margin: 0;
 	      font: inherit;
 	      font-size: 120%;
 	      vertical-align: baseline;
 	      border: 0;
-	      height: 1.7em;
+	      height: 1.2em;
+	      line-height: 1em;
       }
     </style>
     <script src="javascripts/build.js"></script>
@@ -43,13 +44,13 @@
           <h1>
 <a id="big-roman" class="anchor" href="#big-roman" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Big Roman</h1>
 
-<h3>Write your number here:</h3>
+<h4>Write your number here:</h4>
 
   <input type="text" value="5000" id="arabic_input" autocomplete="off">
 
   <button onclick="myFunction()">Try it!</button>
 
-<h3>Roman Numeral:</h3>
+<h4>Roman Numeral:</h4>
    
    <div id="roman_result">&nbsp;</div>
 
@@ -66,7 +67,7 @@
 <script type="text/javascript">
 function myFunction() {
   var x = document.getElementById("arabic_input").value;
-  document.getElementById("roman_result").innerHTML = x;
+  document.getElementById("roman_result").innerHTML = Opal.$Fixnum.$new(x).$to_roman;
 }
     </script>
   </body>
