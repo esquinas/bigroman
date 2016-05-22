@@ -1,2 +1,2 @@
-# bigroman
-Get big Roman numerals, higher than MMMMCMXCIX
+# Big Roman
+Get big Roman numerals, higher than MMMMCMXCIX (4999).
