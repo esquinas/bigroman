@@ -29,7 +29,7 @@ class Roman
     end
 
     ROMAN_TO_ARAB.each_with_object('') do |(roman_letter, value), memo|
-      memo + (roman_letter.to_s * (number / value))
+      memo << roman_letter.to_s * (number / value)
       number %= value
     end
   end
@@ -37,13 +37,16 @@ class Roman
   private
 
   def big_roman(number)
-    BIG_ROMAN_TO_ARAB.each_with_object('') do |(combining_chr, factor), memo|
+    
+    result = BIG_ROMAN_TO_ARAB.each_with_object('') do |(combining_chr, factor), memo|
       memo + combine(to_roman(number / factor), combining_chr.to_s)
       number %= factor
-    end + to_roman(number)
+    end
+    result += to_roman(number)
+    result
   end
 
   def combine(str, combining_chr)
-    str.chars.inject('') { |memo, chr| memo + (chr + combining_chr) }
+    str.chars.inject('') { |memo, chr| memo.concat(chr.concat combining_chr) }
   end
 end
