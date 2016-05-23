@@ -19125,7 +19125,7 @@ Opal.modules["roman"] = function(Opal) {
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$**', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$<<', '$to_s', '$/', '$%', '$private', '$concat', '$combine', '$to_roman', '$inject', '$chars']);
+  Opal.add_stubs(['$**', '$Integer', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$<<', '$to_s', '$/', '$%', '$private', '$concat', '$combine', '$to_roman', '$inject', '$chars']);
   return (function($base, $super) {
     function $Roman(){};
     var self = $Roman = $klass($base, $super, 'Roman', $Roman);
@@ -19139,6 +19139,7 @@ Opal.modules["roman"] = function(Opal) {
     Opal.defn(self, '$to_roman', function(number) {
       var $a, $b, TMP_1, self = this;
 
+      number = self.$Integer(number);
       if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
         number = number
       } else if ((($a = $rb_ge(number, $rb_times(5, (10)['$**'](15)))) !== nil && (!$a.$$is_boolean || $a == true))) {

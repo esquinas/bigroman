@@ -19,6 +19,7 @@ class Roman
                         "\u0305" => 1000 } #  Combining over line
 
   def to_roman(number)
+    number = Integer(number)
     if number < 5000
       number = number
     elsif number >= 5*10**15
