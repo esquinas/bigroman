@@ -19143,7 +19143,9 @@ Opal.modules["roman"] = function(Opal) {
       var $a, $b, TMP_1, self = this, memo = nil;
 
       number = number.$to_i();
-      if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
+      if ((($a = $rb_lt(number, 1)) !== nil && (!$a.$$is_boolean || $a == true))){
+        return ""
+      } else if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
         number = number
       } else if ((($a = $rb_ge(number, $rb_times(5, (10)['$**'](15)))) !== nil && (!$a.$$is_boolean || $a == true))) {
         self.$raise($scope.get('ArgumentError'), "Number '" + (number) + "' is too big for roman numerals")
