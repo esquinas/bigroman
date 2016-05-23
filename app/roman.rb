@@ -19,7 +19,7 @@ class Roman
                         "\u0305" => 1000 } #  Combining over line
 
   def to_roman(number)
-    number = Integer(number)
+    number = number.to_i
     if number < 5000
       number = number
     elsif number >= 5*10**15
@@ -29,7 +29,7 @@ class Roman
     end
 
     ROMAN_TO_ARAB.each_with_object('') do |(roman_letter, value), memo|
-      memo << roman_letter.to_s * (number / value)
+      memo.concat( roman_letter.to_s * (number / value))
       number %= value
     end
   end
@@ -38,12 +38,12 @@ class Roman
 
   def big_roman(number)
     BIG_ROMAN_TO_ARAB.each_with_object('') do |(combining_chr, factor), memo|
-      memo << combine(to_roman(number / factor), combining_chr.to_s)
+      memo.concat combine(to_roman(number / factor), combining_chr.to_s)
       number %= factor
     end.concat to_roman(number)
   end
 
   def combine(str, combining_chr)
-    str.chars.inject('') { |memo, chr| memo << chr << combining_chr }
+    str.chars.inject('') { |memo, chr| memo.concat(chr.concat combining_chr) }
   end
 end
