@@ -19120,12 +19120,15 @@ Opal.modules["roman"] = function(Opal) {
   function $rb_times(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs * rhs : lhs['$*'](rhs);
   }
+  function $rb_plus(lhs, rhs) {
+    return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs + rhs : lhs['$+'](rhs);
+  }
   function $rb_divide(lhs, rhs) {
     return (typeof(lhs) === 'number' && typeof(rhs) === 'number') ? lhs / rhs : lhs['$/'](rhs);
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$**', '$to_i', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$concat', '$to_s', '$/', '$%', '$private', '$combine', '$to_roman', '$inject', '$chars']);
+  Opal.add_stubs(['$**', '$to_i', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$+', '$to_s', '$/', '$%', '$private', '$combine', '$to_roman', '$inject', '$chars']);
   return (function($base, $super) {
     function $Roman(){};
     var self = $Roman = $klass($base, $super, 'Roman', $Roman);
@@ -19149,7 +19152,7 @@ Opal.modules["roman"] = function(Opal) {
       };
       return ($a = ($b = $scope.get('ROMAN_TO_ARAB')).$each_with_object, $a.$$p = (TMP_1 = function($c, memo){var self = TMP_1.$$s || this;
 var roman_letter = $c[0], value = $c[1];if (memo == null) memo = nil;
-      memo.$concat($rb_times(roman_letter.$to_s(), ($rb_divide(number, value))));
+      $rb_plus(memo, ($rb_times(roman_letter.$to_s(), ($rb_divide(number, value)))));
         return number = number['$%'](value);}, TMP_1.$$s = self, TMP_1), $a).call($b, "");
     });
 
@@ -19158,10 +19161,10 @@ var roman_letter = $c[0], value = $c[1];if (memo == null) memo = nil;
     Opal.defn(self, '$big_roman', function(number) {
       var $a, $b, TMP_2, self = this;
 
-      return ($a = ($b = $scope.get('BIG_ROMAN_TO_ARAB')).$each_with_object, $a.$$p = (TMP_2 = function($c, memo){var self = TMP_2.$$s || this;
+      return $rb_plus(($a = ($b = $scope.get('BIG_ROMAN_TO_ARAB')).$each_with_object, $a.$$p = (TMP_2 = function($c, memo){var self = TMP_2.$$s || this;
 var combining_chr = $c[0], factor = $c[1];if (memo == null) memo = nil;
-      memo.$concat(self.$combine(self.$to_roman($rb_divide(number, factor)), combining_chr.$to_s()));
-        return number = number['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b, "").$concat(self.$to_roman(number));
+      $rb_plus(memo, self.$combine(self.$to_roman($rb_divide(number, factor)), combining_chr.$to_s()));
+        return number = number['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b, ""), self.$to_roman(number));
     });
 
     return (Opal.defn(self, '$combine', function(str, combining_chr) {
@@ -19169,7 +19172,7 @@ var combining_chr = $c[0], factor = $c[1];if (memo == null) memo = nil;
 
       return ($a = ($b = str.$chars()).$inject, $a.$$p = (TMP_3 = function(memo, chr){var self = TMP_3.$$s || this;
 if (memo == null) memo = nil;if (chr == null) chr = nil;
-      return memo.$concat(chr.$concat(combining_chr))}, TMP_3.$$s = self, TMP_3), $a).call($b, "");
+      return $rb_plus(memo, ($rb_plus(chr, combining_chr)))}, TMP_3.$$s = self, TMP_3), $a).call($b, "");
     }), nil) && 'combine';
   })($scope.base, null)
 };
