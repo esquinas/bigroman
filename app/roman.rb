@@ -13,16 +13,14 @@ class Roman
                     IV:   4,
                     I:    1 }
 
-  BIG_ROMAN_TO_ARAB = { "\u033F\u0333" => 1000**4, # Combining double over + double low line
-                        "\u033F\u0332" => 1000**3, # Combining double over + low line
-                        "\u0305\u0332" => 1000**2, # Combining over + low line
-                        "\u0305" => 1000 } #  Combining over line
+  BIG_ROMAN_TO_ARAB = { '\u033F\u0333' => 1000_000_000_000, # Combining double over + double low line
+                        '\u033F\u0332' => 1000_000_000, # Combining double over + low line
+                        '\u0305\u0332' => 1000_000, # Combining over + low line
+                        '\u0305' => 1000 } #  Combining over line
 
   def to_roman(number)
     number = number.to_i
-    if number == 0
-      return ''
-    elsif number < 5000
+    if number < 5000
       number = number
     elsif number >= 5*10**15
       raise ArgumentError, "Number '#{number}' is too big for roman numerals"
@@ -39,12 +37,11 @@ class Roman
 
   def big_roman(number)
     memo = ''
-    num = number
     BIG_ROMAN_TO_ARAB.each_pair do |combining_chr, factor|
-      memo += combine(to_roman(num / factor), combining_chr.to_s)
-      num = num % factor
+      memo += combine(to_roman(number / factor), combining_chr.to_s)
+      number %= factor
     end
-    memo += to_roman(num)
+    memo += to_roman(number)
     memo
   end
 
