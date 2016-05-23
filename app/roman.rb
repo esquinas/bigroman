@@ -20,7 +20,9 @@ class Roman
 
   def to_roman(number)
     number = number.to_i
-    if number < 5000
+    if number == 0
+      return ''
+    elsif number < 5000
       number = number
     elsif number >= 5*10**15
       raise ArgumentError, "Number '#{number}' is too big for roman numerals"
@@ -35,15 +37,14 @@ class Roman
     memo
   end
 
-  private
-
   def big_roman(number)
     memo = ''
+    num = number
     BIG_ROMAN_TO_ARAB.each_pair do |combining_chr, factor|
-      memo += combine(to_roman(number / factor), combining_chr.to_s)
-      number %= factor
+      memo += combine(to_roman(num / factor), combining_chr.to_s)
+      num = num % factor
     end
-    memo += to_roman(number)
+    memo += to_roman(num)
     memo
   end
 

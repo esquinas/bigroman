@@ -19128,7 +19128,7 @@ Opal.modules["roman"] = function(Opal) {
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$**', '$to_i', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_pair', '$+', '$to_s', '$/', '$%', '$private', '$combine', '$to_roman', '$inject', '$chars']);
+  Opal.add_stubs(['$**', '$to_i', '$==', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_pair', '$+', '$to_s', '$/', '$%', '$combine', '$to_roman', '$inject', '$chars']);
   return (function($base, $super) {
     function $Roman(){};
     var self = $Roman = $klass($base, $super, 'Roman', $Roman);
@@ -19143,7 +19143,9 @@ Opal.modules["roman"] = function(Opal) {
       var $a, $b, TMP_1, self = this, memo = nil;
 
       number = number.$to_i();
-      if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
+      if (number['$=='](0)) {
+        return ""
+      } else if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
         number = number
       } else if ((($a = $rb_ge(number, $rb_times(5, (10)['$**'](15)))) !== nil && (!$a.$$is_boolean || $a == true))) {
         self.$raise($scope.get('ArgumentError'), "Number '" + (number) + "' is too big for roman numerals")
@@ -19158,17 +19160,16 @@ if (roman_letter == null) roman_letter = nil;if (value == null) value = nil;
       return memo;
     });
 
-    self.$private();
-
     Opal.defn(self, '$big_roman', function(number) {
-      var $a, $b, TMP_2, self = this, memo = nil;
+      var $a, $b, TMP_2, self = this, memo = nil, num = nil;
 
       memo = "";
+      num = number;
       ($a = ($b = $scope.get('BIG_ROMAN_TO_ARAB')).$each_pair, $a.$$p = (TMP_2 = function(combining_chr, factor){var self = TMP_2.$$s || this;
 if (combining_chr == null) combining_chr = nil;if (factor == null) factor = nil;
-      memo = $rb_plus(memo, self.$combine(self.$to_roman($rb_divide(number, factor)), combining_chr.$to_s()));
-        return number = number['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b);
-      memo = $rb_plus(memo, self.$to_roman(number));
+      memo = $rb_plus(memo, self.$combine(self.$to_roman($rb_divide(num, factor)), combining_chr.$to_s()));
+        return num = num['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b);
+      memo = $rb_plus(memo, self.$to_roman(num));
       return memo;
     });
 
