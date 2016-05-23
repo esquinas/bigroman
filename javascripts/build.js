@@ -19125,28 +19125,26 @@ Opal.modules["roman"] = function(Opal) {
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$freeze', '$**', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$<<', '$to_s', '$/', '$%', '$private', '$concat', '$combine', '$to_roman', '$inject', '$chars']);
+  Opal.add_stubs(['$**', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_with_object', '$<<', '$to_s', '$/', '$%', '$private', '$concat', '$combine', '$to_roman', '$inject', '$chars']);
   return (function($base, $super) {
-    function $Fixnum(){};
-    var self = $Fixnum = $klass($base, $super, 'Fixnum', $Fixnum);
+    function $Roman(){};
+    var self = $Roman = $klass($base, $super, 'Roman', $Roman);
 
     var def = self.$$proto, $scope = self.$$scope;
 
-    Opal.cdecl($scope, 'VERSION', 1);
+    Opal.cdecl($scope, 'ROMAN_TO_ARAB', $hash2(["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], {"M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100, "XC": 90, "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1}));
 
-    Opal.cdecl($scope, 'ROMAN_TO_ARAB', $hash2(["M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"], {"M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100, "XC": 90, "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1}).$freeze());
+    Opal.cdecl($scope, 'BIG_ROMAN_TO_ARAB', $hash2(["̳̿", "̲̿", "̲̅", "̅"], {"̳̿": (1000)['$**'](4), "̲̿": (1000)['$**'](3), "̲̅": (1000)['$**'](2), "̅": 1000}));
 
-    Opal.cdecl($scope, 'BIG_ROMAN_TO_ARAB', $hash2(["̳̿", "̲̿", "̲̅", "̅"], {"̳̿": (1000)['$**'](4), "̲̿": (1000)['$**'](3), "̲̅": (1000)['$**'](2), "̅": 1000}).$freeze());
+    Opal.defn(self, '$to_roman', function(number) {
+      var $a, $b, TMP_1, self = this;
 
-    Opal.defn(self, '$to_roman', function() {
-      var $a, $b, TMP_1, self = this, number = nil;
-
-      if ($rb_lt(self, 5000)) {
-        number = self
-      } else if ($rb_ge(self, $rb_times(5, (10)['$**'](15)))) {
-        self.$raise($scope.get('ArgumentError'), "Number '" + (self) + "' is too big for roman numerals")
+      if ((($a = $rb_lt(number, 5000)) !== nil && (!$a.$$is_boolean || $a == true))) {
+        number = number
+      } else if ((($a = $rb_ge(number, $rb_times(5, (10)['$**'](15)))) !== nil && (!$a.$$is_boolean || $a == true))) {
+        self.$raise($scope.get('ArgumentError'), "Number '" + (number) + "' is too big for roman numerals")
         } else {
-        return self.$big_roman(self)
+        return self.$big_roman(number)
       };
       return ($a = ($b = $scope.get('ROMAN_TO_ARAB')).$each_with_object, $a.$$p = (TMP_1 = function($c, memo){var self = TMP_1.$$s || this;
 var roman_letter = $c[0], value = $c[1];if (memo == null) memo = nil;
@@ -19161,8 +19159,8 @@ var roman_letter = $c[0], value = $c[1];if (memo == null) memo = nil;
 
       return ($a = ($b = $scope.get('BIG_ROMAN_TO_ARAB')).$each_with_object, $a.$$p = (TMP_2 = function($c, memo){var self = TMP_2.$$s || this;
 var combining_chr = $c[0], factor = $c[1];if (memo == null) memo = nil;
-      memo['$<<'](self.$combine(($rb_divide(number, factor)).$to_roman(), combining_chr.$to_s()));
-        return number = number['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b, "").$concat(number.$to_roman());
+      memo['$<<'](self.$combine(self.$to_roman($rb_divide(number, factor)), combining_chr.$to_s()));
+        return number = number['$%'](factor);}, TMP_2.$$s = self, TMP_2), $a).call($b, "").$concat(self.$to_roman(number));
     });
 
     return (Opal.defn(self, '$combine', function(str, combining_chr) {

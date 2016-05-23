@@ -1,7 +1,4 @@
-# Extends Fixnum class with #to_roman method
-class Fixnum
-  VERSION = 1
-
+class Roman
   ROMAN_TO_ARAB = { M: 1000,
                     CM: 900,
                     D:  500,
@@ -14,20 +11,20 @@ class Fixnum
                     IX:   9,
                     V:    5,
                     IV:   4,
-                    I:    1 }.freeze
+                    I:    1 }
 
   BIG_ROMAN_TO_ARAB = { "\u033F\u0333" => 1000**4, # Combining double over + double low line
                         "\u033F\u0332" => 1000**3, # Combining double over + low line
                         "\u0305\u0332" => 1000**2, # Combining over + low line
-                        "\u0305" => 1000 }.freeze #  Combining over line
+                        "\u0305" => 1000 } #  Combining over line
 
-  def to_roman
-    if self < 5000
-      number = self
-    elsif self >= 5*10**15
-      raise ArgumentError, "Number '#{self}' is too big for roman numerals"
+  def to_roman(number)
+    if number < 5000
+      number = number
+    elsif number >= 5*10**15
+      raise ArgumentError, "Number '#{number}' is too big for roman numerals"
     else
-      return big_roman(self)
+      return big_roman(number)
     end
 
     ROMAN_TO_ARAB.each_with_object('') do |(roman_letter, value), memo|
@@ -40,9 +37,9 @@ class Fixnum
 
   def big_roman(number)
     BIG_ROMAN_TO_ARAB.each_with_object('') do |(combining_chr, factor), memo|
-      memo << combine((number / factor).to_roman, combining_chr.to_s)
+      memo << combine(to_roman(number / factor), combining_chr.to_s)
       number %= factor
-    end.concat number.to_roman
+    end.concat to_roman(number)
   end
 
   def combine(str, combining_chr)
