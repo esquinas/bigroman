@@ -19128,7 +19128,7 @@ Opal.modules["roman"] = function(Opal) {
   }
   var self = Opal.top, $scope = Opal, nil = Opal.nil, $breaker = Opal.breaker, $slice = Opal.slice, $klass = Opal.klass, $hash2 = Opal.hash2;
 
-  Opal.add_stubs(['$**', '$to_i', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_pair', '$+', '$to_s', '$/', '$%', '$private', '$combine', '$to_roman', '$inject', '$concat', '$chars']);
+  Opal.add_stubs(['$**', '$to_i', '$<', '$>=', '$*', '$raise', '$big_roman', '$each_pair', '$+', '$to_s', '$/', '$%', '$private', '$combine', '$to_roman', '$inject', '$chars']);
   return (function($base, $super) {
     function $Roman(){};
     var self = $Roman = $klass($base, $super, 'Roman', $Roman);
@@ -19177,7 +19177,7 @@ if (combining_chr == null) combining_chr = nil;if (factor == null) factor = nil;
 
       return ($a = ($b = str.$chars()).$inject, $a.$$p = (TMP_3 = function(memo, chr){var self = TMP_3.$$s || this;
 if (memo == null) memo = nil;if (chr == null) chr = nil;
-      return memo.$concat(chr.$concat(combining_chr))}, TMP_3.$$s = self, TMP_3), $a).call($b, "");
+      return $rb_plus($rb_plus(memo, chr), combining_chr)}, TMP_3.$$s = self, TMP_3), $a).call($b, "");
     }), nil) && 'combine';
   })($scope.base, null)
 };

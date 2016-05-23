@@ -48,6 +48,6 @@ class Roman
   end
 
   def combine(str, combining_chr)
-    str.chars.inject('') { |memo, chr| memo.concat(chr.concat combining_chr) }
+    str.chars.inject('') { |memo, chr| memo + chr + combining_chr }
   end
 end
