@@ -27,23 +27,24 @@ class Roman
     else
       return big_roman(number)
     end
-
-    ROMAN_TO_ARAB.each_with_object('') do |(roman_letter, value), memo|
-      memo << roman_letter.to_s * (number / value)
+    memo = ''
+    ROMAN_TO_ARAB.each_pair do |roman_letter, value|
+      memo += "#{roman_letter.to_s * (number / value)}"
       number %= value
     end
+    memo
   end
 
   private
 
   def big_roman(number)
-    
-    result = BIG_ROMAN_TO_ARAB.each_with_object('') do |(combining_chr, factor), memo|
-      memo + combine(to_roman(number / factor), combining_chr.to_s)
+    memo = ''
+    BIG_ROMAN_TO_ARAB.each_pair do |combining_chr, factor|
+      memo += combine(to_roman(number / factor), combining_chr.to_s)
       number %= factor
     end
-    result += to_roman(number)
-    result
+    memo += to_roman(number)
+    memo
   end
 
   def combine(str, combining_chr)
